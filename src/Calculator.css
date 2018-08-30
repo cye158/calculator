@@ -1,0 +1,14 @@
+/*    Calculator    */
+
+.calc{
+    font-weight: bold;
+    font-family: digital;
+    background: rgb(50, 50, 50);
+    height: 35em;
+    width: 30em;
+    padding: .25em .25em 0 .25em;
+    border: .125em  solid rgb(50, 50, 50);
+    border-radius: .3125em;
+    box-shadow: .15em .15em .155em .35em rgb(25, 25, 25);
+  }
+  
