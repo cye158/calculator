@@ -3,7 +3,7 @@ import './Footer.css';
 
 function Footer (){
     return(
-        <div className='footer'>CYE-MN0106</div>
+        <div className='footer'>Model #: CYE-MN0106</div>
     );
 }
 

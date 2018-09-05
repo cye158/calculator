@@ -6,15 +6,17 @@ import './Equation.css';
 function Equation (props) { 
   return (
       <div>
-        <div className='formula'>13+123={props.formula}</div>
-        <div className='answer'>136{props.currVal}</div>
+        <div className='formula'>{props.formula}</div>
+        <div className='answer'>{props.currVal}</div>
       </div>
   );
 }
 
 const mapStateToProps = (state) => {
     return{
+      currVal: state.currVal,
+      formula: state.formula,
     };
-}
+};
 
-export default connect(mapStateToProps)(Equation);
+export default connect(mapStateToProps,null)(Equation);

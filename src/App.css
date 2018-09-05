@@ -1,21 +1,24 @@
 @font-face {
   font-family: "digital";
-  src:  url('./fonts/digital.ttf') format('truetype')
+  src:  url('./fonts/digital_i.ttf') format('truetype')
 }
 
 .App { 
   display: grid;
+  font-family: digital;
   justify-content: center;
   text-align: center;
   color: whitesmoke;
 }
 
 .App-header {
-  padding: 0.15em;
-  margin: 2.5em 0;
+  padding: 0.1em;
+  margin: 1.75em 0;
   color: white;
+  text-shadow: .15em .15em .075em  rgb(25, 25, 25);
 }
 
 .App-title {
-  font-size: 2em;
+  font-size: 3.5em;
+  font-weight: 900;
 }
