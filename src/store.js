@@ -1,89 +1,144 @@
 import { createStore } from 'redux';
+import * as math from 'mathjs';
+
 
 const defaultState = {
-    inputVal: '',
-    currVal: '0',
-    prevVal: '',
-    formula: '',
+    inputVal: '',   //input value from calculator app
+    showVal: '',   //display value 
+    showExp: '0',    //display expression
+    currVal: '',    //current value
+    currExp: '',    //current expression
+    isSolved: false,    //boolean evaluation
 };
 
+const precision = 13;
 
 const evalReducer = (state = defaultState, action) => {
 
-    let newValue = '';
+    let newValue, 
+        evalResult,
+        newFormula;
+
 
     switch(action.type){
-        case 'digits':  
-            
-            //if starting with zero overwrite with non-zero input.
-            //else if head is non-zero then append number.
-            //else return unchanged.
-            if ((/^0+(?!\.)/).test(state.currVal) ) { 
+        case 'digits':
+            //if initial state or post-evaluation, then overwrite input.
+            if (state.currVal === '' || state.currVal === '0') { 
                 newValue = action.inputVal;
-            } else if ((/^[1-9]\d*/).test(state.currVal) || (/^(\d*\.)/).test(state.currVal)){
+                newFormula = (state.currExp !== '' && state.currVal !== '0') ? state.currExp + action.inputVal : action.inputVal;
+            }
+            //else if head is non-zero then append input number.
+            else if (((/^[1-9]\d*/).test(state.currVal) || (/^(\d*\.)/).test(state.currVal))){
                 newValue = state.currVal + action.inputVal;
-            } else {
+                newFormula = state.currExp + action.inputVal;
+            }
+            //else keep unchanged.
+            else {
                 newValue = state.currVal;
+                newFormula = state.currExp;
             }
 
             return {
                 ...state,    
+                showVal: newValue,
+                //showExp: newFormula,
                 currVal: newValue,
-                prevVal: newValue,
+                currExp : newFormula,
+                isSolved: false,
             };
 
-        case 'operator': 
 
-            //if current formula has no operator at the end, add one.
-            //else if formula already has operator at the end, overwrite end with new one.
-            //else return unchanged.
-            if (state.formula === '') {
-                newValue = state.currVal + action.inputVal;
-            } else if((/(\d*[-+*/%])$/).test(state.formula) && state.currVal !== '0') { 
-                newValue = state.formula + state.currVal + action.inputVal;
-            } else if ((/[-+*/%]$/).test(state.formula)) {
-                newValue = state.formula.slice(0,state.formula.length-1) + action.inputVal;
-            } else {
-                newValue = state.formula;
+        case 'operator': 
+            //if current currExp has no operator at the end, then add one.
+            if ((!(/^[-+*/%]/).test(state.currExp) && (/\d\.*$/).test(state.currVal)) && !state.isSolved) {
+                newFormula = state.currExp + action.inputVal;
+            }
+            //else if currExp already has operator at the end, overwrite end with new one. 
+            else if ((/[-+*/%]$/).test(state.currExp)) {
+                newFormula = state.currExp.slice(0,state.currExp.length-1) + action.inputVal;
+            }
+            //else keep unchanged. 
+            else {
+                newFormula = state.currExp;
             }
             
             return {
                 ...state,
-                formula: newValue,
-                currVal: '0',
+                showVal: action.inputVal,
+                showExp: newFormula,
+                currVal: '',
+                currExp: newFormula,
+                isSolved: false,
             };
 
+
         case 'decimal':
-            
-            //if current input starts with a zero or non-zero numbers does have a decimal, tadd a decimal dot. 
-            //else return unchanged state value.
-            if ((/^0+(?!\.)/).test(state.currVal) || (/^([1-9]\d*(?!\.))*$/).test(state.currVal) ) {
+            //if input is just a zero, then add dot after.
+             if (state.currVal === '') {
+                newValue = '0' + action.inputVal;
+                newFormula = state.currExp + '0' + action.inputVal;
+            }
+            //if current input starts with a zero or non-zero numbers does have a decimal, append a dot.
+            else if (((/^([1-9]\d*)(?!\.)$/).test(state.currVal) || (/^0(?!\.)$/).test(state.currVal)) && !state.isSolved) {
                 newValue = state.currVal + action.inputVal;
-            } else {
+                newFormula = state.currExp + action.inputVal;
+            }
+            //else keep unchanged.
+            else {
                 newValue = state.currVal; 
+                newFormula = state.currExp; 
             }
 
             return {
                 ...state,    
+                showVal: newValue,
+                showExp: state.currExp,
                 currVal: newValue,
-                prevVal: newValue
+                currExp: newFormula,
+                isSolved: false,
             };
+
 
         case 'AC': 
             //clear all values in the state.
             return {  
                 inputVal: '',
-                currVal: '0',
-                prevVal: '',
-                formula: '',
+                showVal: '0',
+                currVal: '',
+                currExp: '',
+                isSolved: false,
             };
 
+
         case 'evaluate': 
-                
+            //if currExp is not evaluated yet, then evaluate. 
+            if (!state.isSolved) {
+                //if currExp ends with an operator, exclude it then evaluate.
+                if ((/[-+*/%]$/).test(state.currExp)) {
+                    newFormula = state.currExp.slice(0,state.currExp.length-1);
+                    evalResult = math.format(math.eval(newFormula) , precision);
+                }
+                //else evaluate normally
+                else {
+                    newFormula = state.currExp;
+                    evalResult = math.format(math.eval(newFormula) , precision);
+                }
+            }
+            //else keep unchanged. 
+            else {
+                newFormula = math.format(math.eval(newFormula), precision);
+                evalResult = state.currVal;
+            }
+
+            console.log(newFormula,newValue);
 
             return {
                 ...state,
-                formula: state.formula,
+                showVal: evalResult,
+                showExp: newFormula + action.inputVal,
+                currVal: '',
+                currExp: '',
+                isSolved: true,
             };
         default: 
             return state;

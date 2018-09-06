@@ -6,16 +6,16 @@ import './Equation.css';
 function Equation (props) { 
   return (
       <div>
-        <div className='formula'>{props.formula}</div>
-        <div className='answer'>{props.currVal}</div>
+        <div className='formula'>{props.showExp}</div>
+        <div className='answer'>{props.showVal}</div>
       </div>
   );
 }
 
 const mapStateToProps = (state) => {
     return{
-      currVal: state.currVal,
-      formula: state.formula,
+      showVal: state.showVal,
+      showExp: state.showExp,
     };
 };
 

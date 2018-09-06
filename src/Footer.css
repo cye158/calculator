@@ -9,5 +9,6 @@
     justify-content: flex-end;
     font-size: .725em;
     font-weight: bold;
+    text-shadow: -.075em -.075em .05em black;
   }
   
