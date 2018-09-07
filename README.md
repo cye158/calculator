@@ -1,6 +1,6 @@
 # Calculator
 
-[[https://github.com/username/repository/blob/master/img/octocat.png|alt=octocat]]
+[[https://github.com/cye158/calculator/blob/master/public/calc-img.jpg|alt=calculator_img]]
 
 ## Description
 
