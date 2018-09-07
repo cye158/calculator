@@ -1,6 +1,6 @@
 # Calculator
 
-![calculator jpg]([https://github.com/cye158/calculator/blob/master/public/calc-img.jpg "Animation that shows auto completion")
+![calculator jpg](./public/calc-img.jpg "calculator screenshot")
 
 ## Description
 
