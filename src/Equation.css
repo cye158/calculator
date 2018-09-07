@@ -2,9 +2,10 @@
 
 .formula{
     display: flex;
+    overflow-y: scroll;
     background: rgb(30, 25, 20);
     justify-content: flex-end;
-    padding: 0 .25em;
+    padding: 0 .5em;
     font-size: 2em;
     color: rgba(225, 210, 75, .75);
     height: 1.35em;

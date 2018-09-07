@@ -4,28 +4,30 @@ import * as math from 'mathjs';
 
 const defaultState = {
     inputVal: '',   //input value from calculator app
-    showVal: '',   //display value 
-    showExp: '0',    //display expression
+    showVal: '',    //display value 
+    showExp: '0',   //display expression
     currVal: '',    //current value
     currExp: '',    //current expression
     isSolved: false,    //boolean evaluation
 };
 
-const precision = 13;
+const precision = 10;
 
 const evalReducer = (state = defaultState, action) => {
 
     let newValue, 
         evalResult,
         newFormula;
-
-
+    
+    //checks and slice input to a desired length.
+    const maxInputLen = (strVal) => (strVal.length <= 14) ? strVal : strVal.slice(0,14) ; 
+    
     switch(action.type){
         case 'digits':
             //if initial state or post-evaluation, then overwrite input.
-            if (state.currVal === '' || state.currVal === '0') { 
+            if (state.currVal === '' || state.currVal === '0' || state.isSolved) { 
                 newValue = action.inputVal;
-                newFormula = (state.currExp !== '' && state.currVal !== '0') ? state.currExp + action.inputVal : action.inputVal;
+                newFormula = ((state.currExp !== '' && state.currVal !== '0') && !state.isSolved) ? state.currExp + action.inputVal : action.inputVal;
             }
             //else if head is non-zero then append input number.
             else if (((/^[1-9]\d*/).test(state.currVal) || (/^(\d*\.)/).test(state.currVal))){
@@ -40,17 +42,15 @@ const evalReducer = (state = defaultState, action) => {
 
             return {
                 ...state,    
-                showVal: newValue,
-                //showExp: newFormula,
-                currVal: newValue,
-                currExp : newFormula,
+                showVal: maxInputLen(newValue),
+                currVal: maxInputLen(newValue),
+                currExp: newFormula,
                 isSolved: false,
             };
 
-
         case 'operator': 
             //if current currExp has no operator at the end, then add one.
-            if ((!(/^[-+*/%]/).test(state.currExp) && (/\d\.*$/).test(state.currVal)) && !state.isSolved) {
+            if (!(/^[+*/%]/).test(state.currExp) && (/\d\.*$/).test(state.currVal)) {
                 newFormula = state.currExp + action.inputVal;
             }
             //else if currExp already has operator at the end, overwrite end with new one. 
@@ -79,7 +79,7 @@ const evalReducer = (state = defaultState, action) => {
                 newFormula = state.currExp + '0' + action.inputVal;
             }
             //if current input starts with a zero or non-zero numbers does have a decimal, append a dot.
-            else if (((/^([1-9]\d*)(?!\.)$/).test(state.currVal) || (/^0(?!\.)$/).test(state.currVal)) && !state.isSolved) {
+            else if ((/^([1-9]\d*)(?!\.)$/).test(state.currVal) || (/^0(?!\.)$/).test(state.currVal)) {
                 newValue = state.currVal + action.inputVal;
                 newFormula = state.currExp + action.inputVal;
             }
@@ -92,7 +92,6 @@ const evalReducer = (state = defaultState, action) => {
             return {
                 ...state,    
                 showVal: newValue,
-                showExp: state.currExp,
                 currVal: newValue,
                 currExp: newFormula,
                 isSolved: false,
@@ -126,18 +125,16 @@ const evalReducer = (state = defaultState, action) => {
             }
             //else keep unchanged. 
             else {
-                newFormula = math.format(math.eval(newFormula), precision);
+                newFormula = state.currExp;
                 evalResult = state.currVal;
             }
-
-            console.log(newFormula,newValue);
 
             return {
                 ...state,
                 showVal: evalResult,
                 showExp: newFormula + action.inputVal,
-                currVal: '',
-                currExp: '',
+                currVal: evalResult,
+                currExp: evalResult,
                 isSolved: true,
             };
         default: 
