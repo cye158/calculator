@@ -110,8 +110,12 @@ const evalReducer = (state = defaultState, action) => {
 
 
         case 'evaluate': 
+            //if entry is empty then return state.
+            if (state.currExp === '' && state.currVal === ''){
+                return state;
+            }
             //if currExp is not evaluated yet, then evaluate. 
-            if (!state.isSolved) {
+            else if (!state.isSolved) {
                 //if currExp ends with an operator, exclude it then evaluate.
                 if ((/[-+*/%]$/).test(state.currExp)) {
                     newFormula = state.currExp.slice(0,state.currExp.length-1);
