@@ -3,8 +3,6 @@
     display: grid;
     height: 67.5%;
     margin-top: .5em;
-    background: rgb(50, 50, 50);
-    border-radius: 0 0 .1875em 1875em;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas:  
@@ -19,22 +17,24 @@ button{
     font-family: digital;
     font-size: 2.25em;
     justify-content: center;
-    margin: .0525em;
-    border: .065em solid rgb(25, 25, 25);
-    border-radius: .175em;
+    margin: .11em;
+    background: rgb(170, 170, 170);
+    color: rgb(20, 20, 20);
+    border: .05em solid rgba(50, 50, 50, 0.5);
+    border-radius: .3em;
     box-shadow: .03125em .03125em rgb(25, 25, 25);
 }
   
 button:hover {
-    background: rgba(200, 200, 200, 0.75);
+    background: rgba(120, 120, 120, 0.75);
 }
   
 button:active {
     transform: translate(.0525em,.0525em);
     font-size: 1.85em;
-    box-shadow: inset .025em .025em .05em .05em rgb(25, 25, 25);
-    background: gray;
-    color: rgb(200, 220, 250);
+    border: .04em solid rgba(10, 10, 10, 0.75);
+    box-shadow: inset .02em .02em .05em .05em rgb(3, 3, 3);
+    color: rgb(250, 238, 200);
 }
   
 .buttons > #zero{
@@ -120,7 +120,8 @@ button:active {
 #equal:active {
     transform: translate(.0525em,.0525em);
     font-size: 1.85em;
-    box-shadow: inset .025em .025em .05em .05em rgb(25, 25, 25);
+    border: .04em solid rgba(10, 10, 10, 0.75);
+    box-shadow: inset .02em .02em .05em .05em rgb(25, 25, 25);
     background: rgb(20, 50, 130);
     color: rgba(220, 200, 150, 0.75);
 }
@@ -136,7 +137,8 @@ button:active {
 #allclear:active {
     transform: translate(.0525em,.0525em);
     font-size: 1.85em;
-    box-shadow: inset .025em .025em .05em .05em rgb(25, 25, 25);
+    border: .04em solid rgba(10, 10, 10, 0.75);
+    box-shadow: inset .02em .02em .05em .05em rgb(25, 25, 25);
     background: rgb(130, 20, 30);
     color: rgba(220, 200, 150, 0.75);
 }

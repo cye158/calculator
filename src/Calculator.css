@@ -1,14 +1,13 @@
 /*    Calculator    */
-
 .calc{
     font-weight: bold;
     font-family: digital;
-    background: rgb(50, 50, 50);
-    height: 35.5em;
-    width: 30em;
-    padding: .25em .25em 0 .25em;
-    border: .125em  solid rgb(50, 50, 50);
-    border-radius: .3125em;
-    box-shadow: .15em .15em .155em .35em rgb(25, 25, 25);
+    background: rgb(35, 35, 35);
+    height: 32em;
+    width: 27em;
+    padding: 1.15em .75em 0 .75em;
+    border: .1em solid rgba(25, 25, 25, 0.5);
+    border-radius: .5em;
+    box-shadow: .5em .5em .3em -.1em rgba(25, 25, 25, 0.75);
   }
   

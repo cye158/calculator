@@ -6,10 +6,11 @@
     background: rgb(30, 25, 20);
     justify-content: flex-end;
     padding: 0 .5em;
-    font-size: 2em;
+    font-size: 1.75em;
     color: rgba(225, 210, 75, .75);
     height: 1.35em;
-    border: .2em double rgb(75, 75, 75);
+    border: .1em inset rgb(85, 85, 85);
+    box-shadow: inset .1em .1em rgb(30, 30, 30);
     border-radius: .25em .25em 0 0;
 }
   
@@ -18,10 +19,12 @@
     background: rgb(15, 15, 15);
     justify-content: flex-end;
     padding: 0 .15em;
-    font-size: 4em;
+    margin: .05em 0 .35em 0;
+    font-size: 3.5em;
     height: 1.4em;
     align-content: center;
-    border: .1em double rgb(75, 75, 75);
+    border: .05em inset rgb(85, 85, 85);
+    box-shadow: inset .1em rgb(30, 30, 30);
     border-radius: 0 0 .15em .15em;
 }
   

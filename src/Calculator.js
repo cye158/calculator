@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Calculator.css';
 import Equation from './Equation';
 import Buttons from './Buttons';
-import Footer from './Footer';
+//import Footer from './Footer';
 
 
 class Calculator extends Component {
@@ -11,7 +11,6 @@ class Calculator extends Component {
       <div className='calc'>
           <Equation />
           <Buttons />
-          <Footer />
       </div>
     );
   }
