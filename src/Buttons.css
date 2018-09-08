@@ -20,9 +20,9 @@ button{
     margin: .11em;
     background: rgb(170, 170, 170);
     color: rgb(20, 20, 20);
-    border: .05em solid rgba(50, 50, 50, 0.5);
+    border: .07em solid rgba(50, 50, 50, 0.5);
     border-radius: .3em;
-    box-shadow: .03125em .03125em rgb(25, 25, 25);
+    box-shadow: .065em .065em rgb(25, 25, 25);
 }
   
 button:hover {
@@ -32,7 +32,7 @@ button:hover {
 button:active {
     transform: translate(.0525em,.0525em);
     font-size: 1.85em;
-    border: .04em solid rgba(10, 10, 10, 0.75);
+    border: .07em solid rgba(10, 10, 10, 0.75);
     box-shadow: inset .02em .02em .05em .05em rgb(3, 3, 3);
     color: rgb(250, 238, 200);
 }
@@ -120,7 +120,7 @@ button:active {
 #equal:active {
     transform: translate(.0525em,.0525em);
     font-size: 1.85em;
-    border: .04em solid rgba(10, 10, 10, 0.75);
+    border: .07em solid rgba(10, 10, 10, 0.75);
     box-shadow: inset .02em .02em .05em .05em rgb(25, 25, 25);
     background: rgb(20, 50, 130);
     color: rgba(220, 200, 150, 0.75);
@@ -137,7 +137,7 @@ button:active {
 #allclear:active {
     transform: translate(.0525em,.0525em);
     font-size: 1.85em;
-    border: .04em solid rgba(10, 10, 10, 0.75);
+    border: .07em solid rgba(10, 10, 10, 0.75);
     box-shadow: inset .02em .02em .05em .05em rgb(25, 25, 25);
     background: rgb(130, 20, 30);
     color: rgba(220, 200, 150, 0.75);
