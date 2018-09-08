@@ -11,7 +11,8 @@ const defaultState = {
     isSolved: false,    //boolean evaluation
 };
 
-const precision = 10;
+const precision = 9;
+const InputLen = 16;
 
 const evalReducer = (state = defaultState, action) => {
 
@@ -19,9 +20,9 @@ const evalReducer = (state = defaultState, action) => {
         evalResult,
         newFormula;
     
-    //checks and slice input to a desired length.
-    const maxInputLen = (strVal) => (strVal.length <= 14) ? strVal : strVal.slice(0,14) ; 
-    
+    //check length.
+    const checkLength = (str) => (str.length >= InputLen);
+
     switch(action.type){
         case 'digits':
             //if initial state or post-evaluation, then overwrite input.
@@ -33,6 +34,11 @@ const evalReducer = (state = defaultState, action) => {
             else if (((/^[1-9]\d*/).test(state.currVal) || (/^(\d*\.)/).test(state.currVal))){
                 newValue = state.currVal + action.inputVal;
                 newFormula = state.currExp + action.inputVal;
+                //if input limit has been met.
+                if(checkLength(newValue)){
+                    newValue = newValue.slice(0,newValue.length-1);
+                    newFormula = newFormula.slice(0,newFormula.length-1);
+                }
             }
             //else keep unchanged.
             else {
@@ -42,8 +48,8 @@ const evalReducer = (state = defaultState, action) => {
 
             return {
                 ...state,    
-                showVal: maxInputLen(newValue),
-                currVal: maxInputLen(newValue),
+                showVal: newValue,
+                currVal: newValue,
                 currExp: newFormula,
                 isSolved: false,
             };
@@ -138,7 +144,7 @@ const evalReducer = (state = defaultState, action) => {
                 showVal: evalResult,
                 showExp: newFormula + action.inputVal,
                 currVal: evalResult,
-                currExp: evalResult,
+                currExp: '('+evalResult+')',
                 isSolved: true,
             };
         default: 
