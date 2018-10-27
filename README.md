@@ -14,7 +14,6 @@ This simple react-redux application calculator.
 
 ```bash
 $ git clone https://github.com/cye158/calculator.git
-$ cd LiveInput
 ```
 
 2) `cd` into project folder `calculator`
